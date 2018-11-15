@@ -18,7 +18,7 @@ cluster.on("online",(worker)=>{
 })
 
 cluster.on("listening",(worker,address)=>{
-    console.log("master: listening event "+worker.id+" pid "+worker.process.id+" address "+address.address+" port "+address.port);
+    console.log("master: listening event "+worker.id+" pid "+worker.process.pid+" address "+address.address+" port "+address.port);
 })
 
 cluster.on("exit",(worker,code,signal)=>{
@@ -34,8 +34,8 @@ cluster.on("exit",(worker,code,signal)=>{
     http.createServer(function(req,res){
         res.writeHead(200);
         count++;
-        console.log("Worker #"+cluster.worker.id+" (pid = "+cluster.worker.process.id+") with count="+count);
-        res.end("Hello from worker "+cluster.worker.id+" (pid "+cluster.worker.process.id+") with count="+count);
+        console.log("Worker #"+cluster.worker.id+" (pid = "+cluster.worker.process.pid+") with count="+count);
+        res.end("Hello from worker "+cluster.worker.id+" (pid "+cluster.worker.process.pid+") with count="+count);
         if(count===3){
             cluster.worker.destroy();
         }
